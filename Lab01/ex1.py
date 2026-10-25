@@ -48,4 +48,40 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 
+# Β) Αναπαράσταση στο χώρο των συχνοτήτων 
 
+# Υπολογσιμός FFT για τα σήματα x και y
+X_fft = np.fft.fft(x)
+Y_fft = np.fft.fft(y)
+
+# Υπολογισμός συχνοτήτων
+freqs_x = np.fft.fftfreq(len(x))
+freqs_y = np.fft.fftfreq(len(y))
+
+# Σχεδίαση των φασμάτων πλάτους σε κοιό διάγραμμα
+plt.figure(figsize=(10, 5))
+plt.plot(freqs_x, np.abs(X_fft), label='Φάσμα x[n]', marker='o')
+plt.plot(freqs_y, np.abs(Y_fft), label='Φάσμα y[n]', marker='s', linestyle='--')
+plt.title('Φάσματα πλάτους των σημάτων x[n] και y[n]')
+plt.xlabel('Κανονικοποιημένη Συχνότητα')
+plt.ylabel('Πλάτος')
+plt.legend()
+plt.grid(True)
+plt.show()
+
+# Γ) Απόδειξη ιδιότητας FFT(x * y) = FFT(x) * FFT(y)
+# Υπολογισμός της συνέλιξης στον χρόνο
+conv_result = np.convolve(x,y)
+N_conv = len(conv_result)
+
+# Υπολογισμός FFT της συνέλιξης
+Conv_fft_result = np.fft.fft(conv_result, N_conv)
+
+# Υπολογισμός του γινομένου των FFT των αρχικών σημάτων
+X_fft_res = np.fft.fft(x, N_conv)
+Y_fft_res = np.fft.fft(y, N_conv)
+Product_fft_result = X_fft_res * Y_fft_res
+
+# Σύγκριση διαφοράς
+max_error = np.max(np.abs(Conv_fft_result - Product_fft_result))
+print(f"Μέγιστη απόλυτη διαφορά: {max_error:.2e}")
