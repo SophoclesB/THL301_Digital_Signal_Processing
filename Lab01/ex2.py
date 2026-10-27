@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Ορισμός χρόνου από 0 έως 500ms (0.5s) με υψηλή ανάλυση για προσομοίωση συνεχούς σήματος
-t_continuous = np.linspace(0, 0.5, 1000)
+t_continuous = np.linspace(0, 5, 1000)
 
 # Δημιουργία του σήματος x(t)
 x_continuous = 20 * np.cos(10 * np.pi * t_continuous) - 40 * np.sin(5 * np.pi * t_continuous)

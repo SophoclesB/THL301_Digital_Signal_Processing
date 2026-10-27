@@ -29,7 +29,7 @@ plt.title('Φάσμα ΠΛάτους Σήματος x(t)')
 plt.xlabel('Συχνότητα (Hz)')
 plt.ylabel('|X(f)|')
 plt.grid(True)
-plt.savefig('LabCode/Lab01/ex3_a.png')
+plt.savefig('Lab01/ex3_a.png')
 
 # Β)
 # Ορίζουμε πλήθος δειγμάτων και συχνότητα
@@ -58,7 +58,7 @@ for f0 in f_low:
     i +=1
 
 plt.tight_layout()
-plt.savefig('LabCode/Lab01/ex3_b.png')
+plt.savefig('Lab01/ex3_b.png')
 
 # Ορισμός συχνοτήτων μεταξύ 18000 και 19500 με βήμα 500
 f_high = [18000, 18500, 19000, 19500]
@@ -80,4 +80,4 @@ for f0 in f_high:
     i += 1
 
 plt.tight_layout()
-plt.savefig('LabCode/Lab01/ex3_c.png')
+plt.savefig('Lab01/ex3_c.png')
