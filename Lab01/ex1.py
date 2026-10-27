@@ -46,7 +46,7 @@ plt.ylabel('Amplitude')
 plt.grid(True)
 
 plt.tight_layout()
-plt.show()
+plt.savefig('LabCode/Lab01/ex1_a.png')
 
 # Β) Αναπαράσταση στο χώρο των συχνοτήτων 
 
@@ -67,7 +67,7 @@ plt.xlabel('Κανονικοποιημένη Συχνότητα')
 plt.ylabel('Πλάτος')
 plt.legend()
 plt.grid(True)
-plt.show()
+plt.savefig('LabCode/Lab01/ex1_b.png')
 
 # Γ) Απόδειξη ιδιότητας FFT(x * y) = FFT(x) * FFT(y)
 # Υπολογισμός της συνέλιξης στον χρόνο
