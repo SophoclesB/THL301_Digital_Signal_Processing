@@ -1,8 +1,11 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+
+MAX_TIME = 5 # seconds
+
 # Ορισμός χρόνου από 0 έως 500ms (0.5s) με υψηλή ανάλυση για προσομοίωση συνεχούς σήματος
-t_continuous = np.linspace(0, 5, 1000)
+t_continuous = np.linspace(0, MAX_TIME, 1000)
 
 # Δημιουργία του σήματος x(t)
 x_continuous = 20 * np.cos(10 * np.pi * t_continuous) - 40 * np.sin(5 * np.pi * t_continuous)
@@ -15,11 +18,11 @@ plt.xlabel('Χρόνος (ms)')
 plt.ylabel('Πλάτος')
 plt.grid(True)
 plt.legend()
-plt.savefig('LabCode/Lab01/ex2_a.png')
+plt.savefig('Lab01/ex2_a.png')
 
 Fs = 8000.0 # Συχνότητα δειγματοληψίας (Hz)
 DT = 1.0 / Fs # Περίοδος δειγματοληψίας (s)
-t = np.arange(-500, 500, DT) # Χρόνος: [-10, 10)
+t = np.arange(-MAX_TIME, MAX_TIME, DT) # Χρόνος: [-MAX_TIME (ms), MAX_TIME(ms))
 # Σήμα: άθροισμα 5 Hz και 2.5 Hz ημιτόνων
 x = 20 * np.sin(10 * np.pi * t) - 40 * np.sin( 5 * np.pi * t)
 # NFFT: μεγαλύτερη δύναμη του 2
@@ -36,18 +39,18 @@ plt.title('Amplitude Spectrum of x(t)')
 plt.xlabel('Frequency (Hz)')
 plt.ylabel('|X(f)|')
 plt.grid(True, alpha=0.3)
-plt.savefig('LabCode/Lab01/ex2_b.png')
+plt.savefig('Lab01/ex2_b.png')
 
 
 # Επιθυμητές περίοδοι δειγματοληψίας
 Ts_values = [1/20, 1/10, 1/5]
-t_continuous = np.linspace(0, 0.5, 1000)
+t_continuous = np.linspace(0, MAX_TIME, 1000)
 
 i = 1
 for Ts in Ts_values:
     Fs = 1/Ts
     n_start = int(np.ceil(0 * Fs))
-    n_end = int(np.floor(0.5 * Fs))
+    n_end = int(np.floor(MAX_TIME * Fs))
     n = np.arange(n_start, n_end + 1)
     t_d = n * Ts
     
@@ -63,5 +66,5 @@ for Ts in Ts_values:
     plt.ylabel('Πλάτος')
     plt.grid(True)
     plt.legend()
-    plt.savefig(f'LabCode/Lab01/ex2_c{i}.png')
+    plt.savefig(f'Lab01/ex2_c{i}.png')
     i += 1
