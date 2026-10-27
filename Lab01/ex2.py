@@ -20,7 +20,7 @@ plt.show()
 Fs = 8000.0 # Συχνότητα δειγματοληψίας (Hz)
 DT = 1.0 / Fs # Περίοδος δειγματοληψίας (s)
 t = np.arange(-500, 500, DT) # Χρόνος: [-10, 10)
-# Σήμα: άθροισμα 50 Hz και 120 Hz ημιτόνων
+# Σήμα: άθροισμα 5 Hz και 2.5 Hz ημιτόνων
 x = 20 * np.sin(10 * np.pi * t) - 40 * np.sin( 5 * np.pi * t)
 # NFFT: μεγαλύτερη δύναμη του 2
 NFFT = 1 << int(np.ceil(np.log2(len(x))))
@@ -56,10 +56,11 @@ for Ts in Ts_values:
     # Σχεδίαση του συνεχούς και του διακριτού σήματος στο ίδιο γράφημα
     plt.figure(figsize=(10, 4))
     plt.plot(t_continuous, x_continuous, label='Συνεχές x(t)', color='blue')
-    plt.stem(t_d, x_discrete, label=f'Διακριτό (Ts={Ts}s)', linefmt='r-', markerfmt='ro', basefmt='r-')
+    plt.stem(t_d, x_discrete, label=f'Διακριτό (Ts={Ts}s)', linefmt='-r')
     plt.title(f'Ερώτημα 2Γ: Δειγματοληψία με περίοδο Ts = {Ts} s')
     plt.xlabel('Χρόνος (s)')
     plt.ylabel('Πλάτος')
     plt.grid(True)
     plt.legend()
     plt.show()
+    
