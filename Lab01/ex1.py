@@ -46,7 +46,7 @@ plt.ylabel('Amplitude')
 plt.grid(True)
 
 plt.tight_layout()
-plt.savefig('LabCode/Lab01/ex1_a.png')
+plt.savefig('Lab01/ex1_a.png')
 
 # Β) Αναπαράσταση στο χώρο των συχνοτήτων 
 
@@ -60,14 +60,14 @@ freqs_y = np.fft.fftfreq(len(y))
 
 # Σχεδίαση των φασμάτων πλάτους σε κοιό διάγραμμα
 plt.figure(figsize=(10, 5))
-plt.stem(freqs_x, np.abs(X_fft), linefmt='b-', markerfmt='bo', basefmt=" ", label='Φάσμα x[n]')
-plt.stem(freqs_y, np.abs(Y_fft), linefmt='C1--', markerfmt='C1s', basefmt=" ", label='Φάσμα y[n]')
+plt.stem(freqs_x, np.abs(X_fft), linefmt='b-', label='Φάσμα x[n]')
+plt.stem(freqs_y, np.abs(Y_fft), linefmt='C1--', label='Φάσμα y[n]')
 plt.title('Φάσματα πλάτους των σημάτων x[n] και y[n]')
 plt.xlabel('Κανονικοποιημένη Συχνότητα')
 plt.ylabel('Πλάτος')
 plt.legend()
 plt.grid(True)
-plt.savefig('LabCode/Lab01/ex1_b.png')
+plt.savefig('Lab01/ex1_b.png')
 
 # Γ) Απόδειξη ιδιότητας FFT(x * y) = FFT(x) * FFT(y)
 # Υπολογισμός της συνέλιξης στον χρόνο
