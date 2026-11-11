@@ -60,5 +60,7 @@ def plot_freqz(b, a, worN=1024):
     return (fig1, ax1), (fig2, ax2)
 
 zplane(b, a)
-plot_freqz(b, a)
-plt.show()
+plt.savefig('Lab02/ex2_a.png')
+(fig_mag_b, _), (fig_phase_b, _) = plot_freqz(b, a, worN=1024)
+fig_mag_b.savefig('Lab02/ex_b_magnitude.png')
+fig_phase_b.savefig('Lab02/ex_b_phase.png')
