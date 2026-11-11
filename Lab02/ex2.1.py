@@ -56,15 +56,16 @@ a = [1.0, -0.25, -0.125]
 
 # Σχεδίαση διαγράμματος
 zplane(b, a)
-plt.show()
+plt.savefig('Lab02/ex1_b.png')
 
 # δ)
 # Δημιουργία διαστήματος [-π, π] με βήμα π/128
 w_vec = np.arange(-np.pi, np.pi, np.pi/128)
 
 # Σχεδίαση απόκρισης συχνότητας
-plot_freqz(b, a, worN=w_vec)
-plt.show()
+(fig_mag_d, _), (fig_phase_d, _) = plot_freqz(b, a, worN=w_vec)
+fig_mag_d.savefig('Lab02/ex1_d_magnitude.png')
+fig_phase_d.savefig('Lab02/ex1_d_phase.png')
 
 # ε)
 # Πρόσθεση επιπλέον πόλου στο z=1
@@ -74,8 +75,10 @@ a_new = np.convolve(a, pole_at_one)
 
 # Δημιουργία διαστήματος [-π, π]και σχεδίαση
 w_vec = np.arange(-np.pi, np.pi, np.pi/128)
-zplot_freqz(b, a_new, worN=w_vec)
-plt.show()
+# Σχεδίαση με πόλο στο z=1
+(fig_mag_e, _), (fig_phase_e, _) = zplot_freqz(b, a_new, worN=w_vec)
+fig_mag_e.savefig('Lab02/ex1_e_magnitude.png')
+fig_phase_e.savefig('Lab02/ex1_e_phase.png')
 
 
 
