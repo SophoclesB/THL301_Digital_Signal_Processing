@@ -28,7 +28,7 @@ x = 20 * np.sin(10 * np.pi * t) - 40 * np.sin( 5 * np.pi * t)
 # NFFT: μεγαλύτερη δύναμη του 2
 NFFT = 1 << int(np.ceil(np.log2(len(x))))
 # FFT με κεντράρισμα (DT για προσέγγιση ολοκλ.)
-X = np.fft.fftshift(np.fft.fft(x, NFFT) * DT / 1000) # Divide by 1000 to account for s -> ms 
+X = np.fft.fftshift(np.fft.fft(x, NFFT) * DT) 
 # Διάνυσμα συχνότητας (Hz), κεντραρισμένο
 F = np.fft.fftshift(np.fft.fftfreq(NFFT, d=DT))
 # Φάσμα πλάτους
@@ -39,7 +39,7 @@ plt.title('Amplitude Spectrum of x(t)')
 plt.xlabel('Frequency (Hz)')
 plt.ylabel('|X(f)|')
 plt.grid(True, alpha=0.3)
-plt.savefig('Lab01/ex2_b.png')
+plt.savefig('ex2_b.png')
 
 
 # Επιθυμητές περίοδοι δειγματοληψίας
@@ -66,5 +66,5 @@ for Ts in Ts_values:
     plt.ylabel('Πλάτος')
     plt.grid(True)
     plt.legend()
-    plt.savefig(f'Lab01/ex2_c{i}.png')
+    plt.savefig(f'ex2_c{i}.png')
     i += 1
