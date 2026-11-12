@@ -7,5 +7,5 @@ Then you can install the dependencies with:\
 
 ---
 ## Usage instructions
-To run each script you need to have Python 3.14.7 installed and in a terminal cd to the LabCode/Lab01/ directory and run:\
+To run each script you need to have Python 3.14.7 installed and in a terminal cd to the LabCode/Lab0*/ directory and run:\
 ```python ex*.py``` where * is the specific exercise number.
