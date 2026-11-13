@@ -4,8 +4,10 @@ from scipy import signal
 
 def zplane(b, a, ax=None):
     b = np.atleast_1d(b); a = np.atleast_1d(a)
+    # Κανονικοποιούμε τους συντελεστές ώστε ο πρώτος όρος του παρονομαστή να είναι 1.
     if a[0] != 1:
         b = b / a[0]; a = a / a[0]
+    # Οι ρίζες αριθμητή και παρονομαστή είναι τα μηδενικά και οι πόλοι του συστήματος.
     z = np.roots(b) if len(b) > 1 else np.array([])
     p = np.roots(a) if len(a) > 1 else np.array([])
     if ax is None:
@@ -22,6 +24,7 @@ def zplane(b, a, ax=None):
     return z, p
 
 def plot_freqz(b, a, worN=1024):
+    # Υπολογίζουμε τη συνάρτηση απόκρισης στις συχνότητες του δοσμένου πλέγματος.
     w, h = signal.freqz(b, a, worN=worN)
     fig1, ax1 = plt.subplots(figsize=(6.4, 3.6))
     ax1.plot(w, 20*np.log10(np.maximum(np.abs(h), 1e-12)))
@@ -36,6 +39,7 @@ def plot_freqz(b, a, worN=1024):
 # Συντελεστές του H(z) σε αύξουσες δυνάμεις του z^{-1}.
 b = [0.6, 0.06, -0.12]
 a = [1.0, -0.25, -0.125]
+# Σχεδιάζουμε και αποθηκεύουμε τον χάρτη πόλων-μηδενικών.
 zplane(b, a)
 plt.savefig('ex1_b.png', dpi=220, bbox_inches='tight')
 plt.close()
@@ -43,6 +47,7 @@ plt.close()
 # Το πλέγμα περιλαμβάνει και τα δύο άκρα και έχει ακριβώς ένα σημείο στο 0.
 indices = np.arange(-128, 129)
 w = indices * (np.pi / 128)
+# Αποθηκεύουμε το μέτρο και τη φάση της απόκρισης στο ίδιο πλέγμα συχνοτήτων.
 (magnitude, _), (phase, _) = plot_freqz(b, a, worN=w)
 magnitude.savefig('ex1_d_magnitude.png', dpi=220, bbox_inches='tight')
 phase.savefig('ex1_d_phase.png', dpi=220, bbox_inches='tight')
@@ -54,6 +59,7 @@ a_with_pole = np.convolve(a, [1.0, -1.0])
 (magnitude, mag_ax), (phase, phase_ax) = plot_freqz(
     b, a_with_pole, worN=w[indices != 0]
 )
+
 for fig, ax, title, filename in [
     (magnitude, mag_ax, 'Magnitude response with a pole at z = 1',
      'ex1_e_magnitude.png'),
