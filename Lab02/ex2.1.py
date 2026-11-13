@@ -79,6 +79,3 @@ w_vec = np.arange(-np.pi, np.pi, np.pi/128)
 (fig_mag_e, _), (fig_phase_e, _) = zplot_freqz(b, a_new, worN=w_vec)
 fig_mag_e.savefig('ex1_e_magnitude.png')
 fig_phase_e.savefig('ex1_e_phase.png')
-
-
-
