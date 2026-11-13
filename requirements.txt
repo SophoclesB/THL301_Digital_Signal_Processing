@@ -12,6 +12,7 @@ pyqt6==6.11.0
 pyqt6-qt6==6.11.2
 pyqt6-sip==13.13.0
 python-dateutil==3.0.0
+scipy==1.15.3
 six==1.17.0
 tzdata==2026.5
 uv==0.13.5

@@ -60,8 +60,8 @@ freqs_y = np.fft.fftfreq(len(y))
 
 # Σχεδίαση των φασμάτων πλάτους σε κοιό διάγραμμα
 plt.figure(figsize=(10, 5))
-plt.stem(freqs_x, np.abs(X_fft), linefmt='b-', label='Φάσμα x[n]')
-plt.stem(freqs_y, np.abs(Y_fft), linefmt='C1--', label='Φάσμα y[n]')
+plt.stem(freqs_x, np.abs(X_fft), linefmt='b-', markerfmt='bo', basefmt=" ", label='Φάσμα x[n]')
+plt.stem(freqs_y, np.abs(Y_fft), linefmt='C1--', markerfmt='C1s', basefmt=" ", label='Φάσμα y[n]')
 plt.title('Φάσματα πλάτους των σημάτων x[n] και y[n]')
 plt.xlabel('Κανονικοποιημένη Συχνότητα')
 plt.ylabel('Πλάτος')
