@@ -2,8 +2,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy import signal
 
-
-
 def zplane(b, a, ax=None):
     b = np.atleast_1d(b); a = np.atleast_1d(a)
     if a[0] != 1:
@@ -23,62 +21,49 @@ def zplane(b, a, ax=None):
     ax.set_aspect('equal', 'box'); ax.legend(); ax.set_title('Pole-Zero Map')
     return z, p
 
-# plot_freqz αλλαγμένη ώστε να ώστε να έχει τα label του δ)
 def plot_freqz(b, a, worN=1024):
     w, h = signal.freqz(b, a, worN=worN)
-    fig1, ax1 = plt.subplots()
+    fig1, ax1 = plt.subplots(figsize=(6.4, 3.6))
     ax1.plot(w, 20*np.log10(np.maximum(np.abs(h), 1e-12)))
     ax1.set_title('Magnitude Response (dB)')
-    ax1.set_xlabel('ω (rad/sample)'); ax1.set_ylabel('|H(e^{jω})| (dB)')
-    fig2, ax2 = plt.subplots()
-    ax2.plot(w, np.unwrap(np.angle(h)))
+    ax1.set_xlabel('ω (rad/sample)'); ax1.set_ylabel(r'$20\log_{10}|H(e^{j\omega})|$ (dB)')
+    fig2, ax2 = plt.subplots(figsize=(6.4, 3.6))
+    ax2.plot(w, np.angle(h))
     ax2.set_title('Phase Response')
-    ax2.set_xlabel('ω (rad/sample)'); ax2.set_ylabel('∠H(e^{jω}) (rad)')
+    ax2.set_xlabel('ω (rad/sample)'); ax2.set_ylabel(r'$\angle H(e^{j\omega})$ (rad)')
     return (fig1, ax1), (fig2, ax2)
 
-# plot_freqz αλλαγμένη ώστε να ώστε να έχει τα label του ε)
-def zplot_freqz(b, a, worN=1024):
-    w, h = signal.freqz(b, a, worN=worN)
-    fig1, ax1 = plt.subplots()
-    ax1.plot(w, 20*np.log10(np.maximum(np.abs(h), 1e-12)))
-    ax1.set_title('Magnitude Response με πόλο στο z=1 (dB)')
-    ax1.set_xlabel('ω (rad/sample)'); ax1.set_ylabel('|H(e^{jω})| (dB)')
-    fig2, ax2 = plt.subplots()
-    ax2.plot(w, np.unwrap(np.angle(h)))
-    ax2.set_title('Phase Response με πόλο στο z=1')
-    ax2.set_xlabel('ω (rad/sample)'); ax2.set_ylabel('∠H(e^{jω}) (rad)')
-    return (fig1, ax1), (fig2, ax2)
-
-# β)
-# Συντελεστές H(z) που υπολογίστηκαν
+# Συντελεστές του H(z) σε αύξουσες δυνάμεις του z^{-1}.
 b = [0.6, 0.06, -0.12]
 a = [1.0, -0.25, -0.125]
-
-# Σχεδίαση διαγράμματος
 zplane(b, a)
-plt.savefig('Lab02/ex1_b.png')
+plt.savefig('ex1_b.png', dpi=220, bbox_inches='tight')
+plt.close()
 
-# δ)
-# Δημιουργία διαστήματος [-π, π] με βήμα π/128
-w_vec = np.arange(-np.pi, np.pi, np.pi/128)
+# Το πλέγμα περιλαμβάνει και τα δύο άκρα και έχει ακριβώς ένα σημείο στο 0.
+indices = np.arange(-128, 129)
+w = indices * (np.pi / 128)
+(magnitude, _), (phase, _) = plot_freqz(b, a, worN=w)
+magnitude.savefig('ex1_d_magnitude.png', dpi=220, bbox_inches='tight')
+phase.savefig('ex1_d_phase.png', dpi=220, bbox_inches='tight')
+plt.close('all')
 
-# Σχεδίαση απόκρισης συχνότητας
-(fig_mag_d, _), (fig_phase_d, _) = plot_freqz(b, a, worN=w_vec)
-fig_mag_d.savefig('Lab02/ex1_d_magnitude.png')
-fig_phase_d.savefig('Lab02/ex1_d_phase.png')
-
-# ε)
-# Πρόσθεση επιπλέον πόλου στο z=1
-# Αυτό σημαίνει παράγοντας 1-z^-1 άρα [1, -1]
-pole_at_one = [1.0, -1.0]
-a_new = np.convolve(a, pole_at_one)
-
-# Δημιουργία διαστήματος [-π, π]και σχεδίαση
-w_vec = np.arange(-np.pi, np.pi, np.pi/128)
-# Σχεδίαση με πόλο στο z=1
-(fig_mag_e, _), (fig_phase_e, _) = zplot_freqz(b, a_new, worN=w_vec)
-fig_mag_e.savefig('Lab02/ex1_e_magnitude.png')
-fig_phase_e.savefig('Lab02/ex1_e_phase.png')
-
-
-
+# Πολλαπλασιάζουμε τον παρονομαστή με (1 - z^{-1}).
+# Στο ω=0 υπάρχει πόλος. Αφήνουμε κενό ανάμεσα στους δύο κλάδους.
+a_with_pole = np.convolve(a, [1.0, -1.0])
+(magnitude, mag_ax), (phase, phase_ax) = plot_freqz(
+    b, a_with_pole, worN=w[indices != 0]
+)
+for fig, ax, title, filename in [
+    (magnitude, mag_ax, 'Magnitude response with a pole at z = 1',
+     'ex1_e_magnitude.png'),
+    (phase, phase_ax, 'Phase response with a pole at z = 1',
+     'ex1_e_phase.png'),
+]:
+    line = ax.lines[0]
+    line.set_data(w, np.insert(line.get_ydata(), 128, np.nan))
+    ax.axvline(0, color='0.45', linestyle='--', linewidth=0.8)
+    ax.set_title(title)
+    ax.set_xlim(-np.pi, np.pi)
+    fig.savefig(filename, dpi=220, bbox_inches='tight')
+plt.close('all')
