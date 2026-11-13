@@ -59,8 +59,9 @@ def plot_freqz(b, a, worN=1024):
     ax2.set_xlabel('ω (rad/sample)'); ax2.set_ylabel('∠H(e^{jω}) (rad)')
     return (fig1, ax1), (fig2, ax2)
 
+# Σχεδίαση και των δύο ερωτημάτων σε png αρχεία 
 zplane(b, a)
 plt.savefig('Lab02/ex2_a.png')
 (fig_mag_b, _), (fig_phase_b, _) = plot_freqz(b, a, worN=1024)
-fig_mag_b.savefig('Lab02/ex_b_magnitude.png')
-fig_phase_b.savefig('Lab02/ex_b_phase.png')
+fig_mag_b.savefig('Lab02/ex2_b_magnitude.png')
+fig_phase_b.savefig('Lab02/ex2_b_phase.png')
